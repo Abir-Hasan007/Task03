@@ -1,0 +1,1647 @@
+/* Basic Reset and Font (adjust font as needed) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: 'myfront';
+    src: url(fonts/SolaimanLipi_20-04-07.ttf);
+}
+
+.heading{
+    font-family:'myfront';
+     padding-top: 10px;
+     font-size: 20px;
+}
+.details{
+    font-family:'myfront';
+    font-size: 15px;
+    font-weight: 500;
+}
+body {
+    font-family: 'Arial', sans-serif; /* Use a Bengali-friendly font if available */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- Header & Top Bar Styling --- */
+.main-header {
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    padding: 0 20px; /* Horizontal padding for desktop */
+}
+
+.header-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #eee; /* Separator between top and main nav */
+}
+
+
+/* Utility Links */
+.utility-links {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 15px; /* Space between utility items */
+}
+
+.utility-links a {
+    text-decoration: none;
+    color: #555;
+    white-space: nowrap; /* Prevent wrapping on items */
+}
+
+.date-info {
+    color: #555;
+    white-space: nowrap;
+}
+
+.utility-links i, .date-info i {
+    margin-right: 5px;
+    color: #555;
+}
+
+
+/* --- Main Navigation Styling --- */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px; /* Fixed height for the nav bar */
+}
+
+.nav-list {
+    list-style: none;
+    display: flex; /* Display menu items horizontally */
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto; /* Allow horizontal scrolling if menu is too long */
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #000;
+    padding: 0 15px;
+    display: block;
+    line-height: 50px; /* Vertically center text */
+    font-size: 16px;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+/* Active/Selected Menu Item Styling */
+.nav-item.active {
+    position: relative;
+}
+
+.nav-item.active a {
+    color: #e00; /* Red color for active text */
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #e00; /* Red underline for active item */
+}
+
+.nav-item a:hover {
+    color: #e00;
+}
+
+/* Nav Controls (Search and Mobile Toggle) */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #000;
+    padding: 0 10px;
+}
+
+/* Hide mobile toggle on desktop */
+.menu-toggle-btn {
+    display: none; 
+}
+
+
+/* --- Responsive Mobile Styles (Media Query) --- */
+@media (max-width: 900px) {
+
+    .main-header {
+        padding: 0 10px;
+    }
+
+    /* Adjust Top Bar Layout for Mobile */
+    .header-top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .utility-links {
+        /* Hide most utility links on small screens */
+        display: none; 
+    }
+
+    .date-info {
+        display: block; /* Keep the date visible */
+        order: 2; /* Move date below the logo */
+        font-size: 12px;
+    }
+
+    /* Show the mobile menu toggle button */
+    .menu-toggle-btn {
+        display: block;
+        font-size: 24px;
+        color: #000;
+        cursor: pointer;
+        padding: 5px;
+        line-height: 1;
+        /* Position next to search button */
+    }
+    
+    .nav-controls {
+        order: 2; /* Put controls on the right */
+        padding-left: 0;
+    }
+    
+    /* Make the menu list vertical and collapsible for mobile */
+    .nav-list {
+        display: none; /* Hide by default */
+        flex-direction: column;
+        position: absolute;
+        top: 100px; /* Position below the header */
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid #eee;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 10;
+        overflow-x: hidden; /* Disable horizontal scrolling */
+    }
+
+    /* Class added by JavaScript to open the menu */
+    .nav-list.open {
+        display: flex;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+    }
+
+    .nav-item a {
+        padding: 10px 20px;
+        line-height: normal;
+        font-size: 18px;
+    }
+
+    .nav-item.active::after {
+        height: 100%; /* Change underline to left border for mobile */
+        width: 3px;
+        left: 0;
+        top: 0;
+    }
+    
+    /* Ensure the main nav bar doesn't take up full width when the menu is collapsed */
+    .main-nav {
+        height: auto;
+        padding: 10px 0;
+        justify-content: space-between;
+    }
+    
+    /* Home icon on mobile needs to be full width */
+    .home-icon {
+        display: none; /* Often hidden on mobile menu */
+    }
+
+}
+
+/* Base Styles for the Container */
+.news-container {
+    padding-top: 20px;
+   
+}
+
+/* --- TOP SECTION STYLES (Flexbox for Desktop) --- */
+.top-section {
+    display: flex; /* Arranges the two child elements (quote and main article) side-by-side */
+    gap: 30px; /* Space between the quote and the main article */
+    margin-bottom: 30px;
+    border: 1px solid #e2e2e2;
+}
+
+.featured-quote {
+    flex: 1; /* Takes up approximately half the space */
+    padding: 20px;
+    background-color: #f7f7f7; /* Light background for the quote box */
+    border-left: 5px solid #ff5722; /* Orange left border like in the image */
+}
+.feature_img{
+   min-height: 190px;
+    overflow: hidden;
+    max-height: 205px;
+    width: 110%;
+}
+.quote-text {
+    font-size: 1.1em;
+    font-style: italic;
+    color: #333;
+}
+
+.source {
+    text-align: right;
+    font-weight: bold;
+    color: #ff5722;
+    margin-top: 15px;
+}
+
+.main-article {
+    flex: 1; /* Takes up approximately the other half */
+    padding-top: 5px;
+}
+
+.main-article h2 {
+    color: #d32f2f; /* Red color for the headline */
+    /* font-size: 20px; */
+    font-weight: 700;
+    /* line-height: 1.3; */
+}
+
+/* --- BOTTOM GRID STYLES (CSS Grid) --- */
+.bottom-grid {
+    display: grid;
+    /* On desktop, create 3 equal columns */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    border: 1px solid #ccc; /* Separator line */
+    padding : 10px;
+   
+}
+
+.grid-item {
+    /* Ensures articles in the grid have content stacked */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.caption {
+    font-size: 1.0em;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #1a1a1a;
+}
+
+/* --- RESPONSIVENESS (Mobile/Tablet Adjustments) --- */
+
+@media (max-width: 768px) {
+    /* For Tablets and smaller screens */
+    .top-section {
+        /* Stack the quote and main article vertically */
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .main-article h2 {
+        /* font-size: 1.5em;  */
+    }
+
+    .bottom-grid {
+        /* On smaller screens, switch to 2 columns */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    /* For Mobile phones */
+    .bottom-grid {
+        /* On mobile, stack all grid items into a single column */
+        grid-template-columns: 1fr;
+    }
+
+    .grid-item {
+        margin-bottom: 20px; /* Add space between stacked items */
+    }
+}
+/* Base Styles */
+.news-list-container {
+    padding-top: 20px;
+   
+}
+
+/* --- MAIN FEATURE STORY STYLES --- */
+.main-feature-story {
+    margin-bottom: 30px;
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+}
+
+.main-feature-story img {
+    /* width: 110%;
+    height: auto;
+    display: block; */
+    max-width: 100%;
+    height: auto;
+}
+
+.main-headline {
+    font-size: 1.8em;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* --- SECONDARY ARTICLES LIST STYLES --- */
+.secondary-articles-list {
+    /* No special layout needed for the list container itself, items will stack */
+}
+
+.secondary-item {
+    display: flex; /* Aligns the image and content side-by-side */
+    align-items: center; /* Vertically center image and text */
+    text-decoration: none; /* Remove underline from link */
+    color: inherit;
+    /* padding: 15px 0; */
+    /* Separator line for all items except the last one */
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+    margin: 12px;
+}
+
+/* Remove bottom border from the very last item in the list */
+.secondary-item:last-child {
+    /* border-bottom: none; */
+}
+
+.secondary-item img {
+    /* Set a fixed size for the thumbnail images */
+    width: 100px;
+    height: 70px;
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    margin-right: 15px;
+    flex-shrink: 0; /* Prevents image from shrinking */
+}
+
+.item-content {
+    flex-grow: 1; /* Allows the text content to take up the remaining space */
+}
+
+.item-content p {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+/* --- SPECIAL STYLES for the last article with multiple small images --- */
+.trio-image-container {
+    display: flex;
+    /* Overrides the single-image width for the special case */
+    width: 100px; 
+    height: 70px;
+    margin-right: 15px;
+    flex-shrink: 0; 
+    /* Ensures the image group stays together and does not wrap */
+    overflow: hidden; 
+}
+
+.trio-image-container img {
+    /* Make each image take up a third of the container width */
+    width: calc(100px / 3); 
+    height: 100%;
+    object-fit: cover;
+    /* Remove the default margin-right applied above to single images */
+    margin-right: 0; 
+}
+
+
+/* --- RESPONSIVENESS (Mobile Adjustments) --- */
+@media (max-width: 500px) {
+    /* On small mobile screens, reduce image size and font size slightly */
+    .main-headline {
+        font-size: 1.5em;
+    }
+    
+    .secondary-item {
+        padding: 10px 0;
+    }
+
+    .secondary-item img,
+    .trio-image-container {
+        width: 80px;
+        height: 60px;
+        margin-right: 10px;
+    }
+    
+    .trio-image-container img {
+        width: calc(80px / 3);
+    }
+
+    .item-content p {
+        font-size: 1em;
+    }
+}
+/* --- MAIN BLOCK STYLES (Simulating a Sidebar Width) --- */
+
+.navbar-brand{
+    padding-top: 20px;
+    border: 1px solid #fff;
+    
+}
+.tabbed-news-block {
+    width: 100%;
+    max-width: 350px; /* Typical width for a sidebar/widget */
+    margin: 0 auto;
+    border: 1px solid #ddd; /* Light border around the whole block */
+    background-color: #fff;
+    margin-top: 15px;
+}
+
+/* --- TABS HEADER STYLES --- */
+.news-tabs-header {
+    display: flex;
+    /* Use a fixed height or padding for a clean look */
+    height: 45px;
+}
+
+.tab-button {
+    flex: 1; /* Makes both buttons equal width */
+    border: none;
+    padding: 10px 0;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #444;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border-bottom: 3px solid transparent; /* Placeholder for active tab underline */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Styling for the Active Tab (Latest tab is active in the image) */
+.tab-button.active {
+    background-color: #fff;
+    color: #cc0000; /* Red text */
+    border-bottom-color: #cc0000; /* Red underline */
+    border-right: 1px solid #ddd; /* Separator line from the image */
+}
+
+/* The 'Popular' tab has a dark background in the image when 'Latest' is active */
+.tab-button[data-tab="popular"]:not(.active) {
+    background-color: #444;
+    color: #fff;
+}
+
+/* --- TAB CONTENT STYLES --- */
+.tab-pane {
+    /* Hide inactive tabs - JS would toggle the 'active' class */
+    display: none;
+    padding: 0 10px;
+}
+
+.tab-pane.active {
+    display: block; /* Show the active tab */
+}
+
+/* --- NEWS LIST ITEM STYLES (Flexbox for alignment) --- */
+.news-list-item {
+    display: flex;
+    align-items: flex-start; /* Align thumbnail and text to the top */
+    padding: 15px 0;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid #eee; /* Separator between articles */
+}
+
+.news-list-item:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.item-thumbnail {
+    width: 80px; /* Fixed size for the thumbnail */
+    height: 60px;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.headline {
+    font-size: 0.95em;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+/* Styling for the special quote thumbnail in the first article */
+.special-quote-item .quote-thumbnail {
+    width: 80px;
+    height: 60px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border-left: 3px solid #cc0000; /* Red line for quote */
+    background-color: #f9f9f9;
+    padding: 5px;
+    overflow: hidden; /* Ensure quote text stays within the thumbnail area */
+}
+
+.quote-thumbnail p {
+    font-size: 0.7em;
+    line-height: 1.2;
+    margin: 0;
+    color: #555;
+}
+.special-quote-item .headline {
+    color: #cc0000; /* Red headline for the quote article */
+}
+
+/* --- ARCHIVE BUTTON --- */
+.archive-button-container {
+    padding: 0;
+    text-align: center;
+}
+
+.archive-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #333; /* Dark background */
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* start-natioal-section */
+ /* Basic Reset and Container Styling */
+.news-section {
+    max-width: 1200px; /* Adjust to your site's main container width */
+    margin: 20px auto;
+    padding: 0 15px;
+    font-family: Arial, sans-serif; /* Use your desired font */
+}
+
+/* --- Header Styling --- */
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    background-color: #333; /* Dark background for the title block */
+    color: white;
+    padding: 5px 15px;
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.more-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* --- Main Content Layout (Desktop/Larger Screens) --- */
+.main-content-area {
+    display: flex; /* Use Flexbox for the main layout */
+    gap: 20px; /* Space between the large article and the sidebar */
+}
+
+/* Large Feature Article (Takes up about 50% of the width) */
+.feature-article {
+    flex: 1; /* Allows it to grow and shrink */
+    min-width: 45%; /* Ensure it takes at least this much space */
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-article img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.article-text-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background for text */
+    color: white;
+    padding: 10px;
+}
+
+.feature-article p {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+/* Sidebar Articles Container (Takes up the rest of the width) */
+.sidebar-articles {
+    flex: 1; /* Allows it to grow and shrink */
+    display: flex;
+    flex-direction: column; /* Stack the rows vertically */
+    gap: 15px; /* Space between the rows */
+}
+
+/* Styling for Rows of Small Articles */
+.top-row-articles,
+.middle-row-articles,
+.bottom-row-articles {
+    display: flex;
+    gap: 15px; /* Space between the two articles in the row */
+}
+
+/* Individual Small Article Styling */
+.small-article-national {
+    flex: 1; /* Makes each article take up half the row width */
+    border: 1px solid #eee; /* Light border around each article */
+    display: flex;
+    flex-direction: column;
+}
+
+.small-article-national a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    gap: 10px; /* Space between image and text */
+    padding: 10px;
+}
+
+.small-article-national img {
+    width: 100px; /* Fixed width for the small article image */
+    height: 70px;
+    object-fit: cover;
+    flex-shrink: 0; /* Prevents image from shrinking in flex container */
+}
+
+.small-article-national p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* --- Responsiveness: Mobile/Smaller Screens (e.g., max-width 768px) --- */
+@media (max-width: 768px) {
+    /* Stack the Feature and Sidebar articles vertically */
+    .main-content-area {
+        flex-direction: column;
+    }
+
+    /* Stack the two small articles in each row vertically */
+    .top-row-articles,
+    .middle-row-articles,
+    .bottom-row-articles {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Small article image should take full width on mobile if desired,
+       or you can keep the horizontal layout by adjusting padding/margins.
+       Here we'll make the whole section stack vertically. */
+    .small-article-national a {
+        display: block; /* Make the link a block to contain elements better */
+        text-align: center;
+    }
+
+    .small-article-national img {
+        width: 100%; /* Image takes full width of the article container */
+        height: auto;
+        margin-bottom: 5px;
+    }
+
+    .small-article-national p {
+        text-align: left; /* Align text properly */
+    }
+}
+/* end-national-section */
+
+/* start-international-section */
+
+/* Basic Styling and Container Setup */
+.international-news {
+    max-width: 1200px; /* Adjust to your site's main container width */
+    margin: 20px auto;
+    padding: 0 15px;
+    font-family: Arial, sans-serif; /* Use your desired font */
+}
+
+/* --- Header Styling --- */
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    background-color: #333; /* Dark background for the title block */
+    color: white;
+    padding: 5px 15px;
+    margin: 0;
+    font-size: 1.5em;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%); /* Creates the slanted edge */
+    padding-right: 25px;
+}
+
+.more-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* --- Main Content Layout (Desktop/Larger Screens) --- */
+.main-content-grid {
+    display: grid;
+    /* Define two columns: Left (approx 40%) and Right (approx 60%) */
+    grid-template-columns: 2fr 3fr;
+    gap: 20px;
+    border: 1px solid #eee;
+    margin: 5px;
+}
+
+/* --- Left Column: Large Articles --- */
+.column-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.internationl-large-article a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.internationl-large-article img {
+    max-width: 120%;
+    height: auto;
+    display: block;
+    margin-bottom: 5px;
+
+}
+
+.internationl-large-article p {
+    /* margin: 5px 0 0 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    line-height: 1.3;
+    display: inline;  */
+}
+
+.internationl-large-article p.red-title {
+    color: red;
+    font-weight: bold;
+}
+
+/* --- Right Column: Small Articles --- */
+.column-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Vertical spacing between articles */
+}
+
+.internationl-small-article {
+    border: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-left: 50px;
+    width: 100%;
+}
+
+.internationl-small-article:last-child {
+    /* border-bottom: none;  */
+}
+
+.internationl-small-article a {
+    text-decoration: none;
+    color: #333;
+    display: flex; /* Layout for image and text */
+    gap: 15px;
+    align-items: center;
+}
+
+.internationl-small-article img {
+    width: 120px; /* Fixed width for the small article image */
+    height: 80px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.internationl-small-article p {
+    margin: 0;
+    font-size: 0.95em;
+    line-height: 1.3;
+    display: inline;
+}
+
+.internationl-small-article p.red-title {
+    color: red;
+    font-weight: bold;
+}
+
+
+/* --- Responsiveness: Mobile/Smaller Screens (e.g., max-width 768px) --- */
+@media (max-width: 768px) {
+    /* Stack the two columns vertically on small screens */
+    .main-content-grid {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+
+    /* Adjust padding/margins for better look on small screens */
+    .column-left,
+    .column-right {
+        gap: 15px;
+    }
+
+    /* For small articles, keep the image and text side-by-side but allow the image to grow slightly */
+    .small-article img {
+        width: 100px; /* Slightly smaller image on mobile to save space */
+        height: 65px;
+    }
+}
+/* end-international-section */
+
+/* start-rajniti-section */
+    .rajniti-news {
+    max-width: 1200px; /* Adjust to your site's main container width */
+    margin: 20px auto;
+    padding: 0 15px;
+    font-family: Arial, sans-serif; /* Use your desired font */
+}
+
+/* --- Header Styling --- */
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    background-color: #333; /* Dark background for the title block */
+    color: white;
+    padding: 5px 15px;
+    margin: 0;
+    font-size: 1.5em;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%); /* Creates the slanted edge */
+    padding-right: 25px;
+}
+
+.more-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* --- Main Content Layout (Desktop/Larger Screens) --- */
+.rajniti-main-content-grid {
+    display: grid;
+    /* Define two columns: Left (approx 40%) and Right (approx 60%) */
+    grid-template-columns: 2fr 3fr;
+    gap: 20px;
+    border: 1px solid #eee;
+    margin: 5px;
+}
+
+/* --- Left Column: Large Articles --- */
+.rajniti-column-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rajniti-large-article a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.rajniti-large-article img {
+    max-width: 170%;
+    height: auto;
+    display: block;
+    margin-bottom: 5px;
+
+}
+
+.internationl-large-article p {
+    /* margin: 5px 0 0 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    line-height: 1.3;
+    display: inline;  */
+}
+
+.internationl-large-article p.red-title {
+    color: red;
+    font-weight: bold;
+}
+
+/* --- Right Column: Small Articles --- */
+.rajniti-column-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Vertical spacing between articles */
+}
+
+.rajniti-small-article {
+    border: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-left: 110px;
+    width: 100%;
+}
+
+.rajniti-small-article:last-child {
+    /* border-bottom: none;  */
+}
+
+.rajniti-small-article a {
+    text-decoration: none;
+    color: #333;
+    display: flex; /* Layout for image and text */
+    gap: 15px;
+    align-items: center;
+}
+
+.rajniti-small-article img {
+    width: 120px; /* Fixed width for the small article image */
+    height: 80px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.rajniti-small-article p {
+    margin: 0;
+    font-size: 0.95em;
+    line-height: 1.3;
+    display: inline;
+}
+
+.rajniti-small-article p.red-title {
+    color: red;
+    font-weight: bold;
+}
+
+
+/* --- Responsiveness: Mobile/Smaller Screens (e.g., max-width 768px) --- */
+@media (max-width: 768px) {
+    /* Stack the two columns vertically on small screens */
+    .main-content-grid {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+
+    /* Adjust padding/margins for better look on small screens */
+    .column-left,
+    .column-right {
+        gap: 15px;
+    }
+
+    /* For small articles, keep the image and text side-by-side but allow the image to grow slightly */
+    .small-article img {
+        width: 100px; /* Slightly smaller image on mobile to save space */
+        height: 65px;
+    }
+}
+/* end-rajniti-section */
+
+/* <!-- start-video-gallery-section --> */
+
+/* Basic Reset and Variables (optional but good practice) */
+:root {
+    --bg-color: #000;
+    --text-color: #fff;
+    --border-color: #c00; /* Red line color */
+    --padding-unit: 10px;
+}
+
+.video-gallery{
+    width: 100%;
+    height: auto;
+    background-color: black;
+}
+.video-gallery-section {
+    background-color: var(--bg-color);
+    padding: var(--padding-unit);
+    color: var(--text-color);
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+/* --- Gallery Header Styling --- */
+.gallery-header h2 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: var(--padding-unit);
+    border-bottom: 3px solid var(--border-color); /* Red line under the heading */
+    padding-bottom: 5px;
+    display: inline-block; /* Makes the border only go under the text */
+}
+
+/* --- CSS Grid Layout for Large Screens (Desktop) --- */
+.video-gallery-grid {
+    display: grid;
+    /* Define the columns: Main video takes 2 parts, small videos take 1 part */
+    grid-template-columns: repeat(4, 1fr);
+    /* Define the rows: Two rows of small videos next to the main one */
+    grid-template-rows: repeat(2, auto);
+    gap: var(--padding-unit); /* Spacing between all items */
+}
+
+/* --- Main Featured Video Styling (Spans 2 columns and 2 rows) --- */
+.featured-main {
+    grid-column: span 2; /* Spans across 2 columns */
+    grid-row: span 2; /* Spans across 2 rows */
+    background-color: #111; /* Slightly different background for visual separation */
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-main .video-caption {
+    padding: 15px;
+    /* Ensure the text is at the bottom of the content box */
+    align-self: flex-end;
+}
+
+.featured-main .video-caption strong {
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* --- General Video Item Styling --- */
+.video-item {
+    display: block; /* Make the anchor tag block level */
+    color: var(--text-color);
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+    background-color: #222; /* Background for small items */
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    /* Creates a 16:9 aspect ratio for the video container (9/16 * 100 = 56.25%) */
+    padding-top: 56.25%; 
+    overflow: hidden;
+}
+
+.video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    transition: transform 0.3s ease;
+}
+
+/* Play Icon Overlay */
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border-radius: 50%;
+    /* Creating a triangle for the play symbol using borders */
+    clip-path: polygon(30% 20%, 30% 80%, 80% 50%); 
+    background-color: var(--border-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* Caption for small videos */
+.small-video .video-caption {
+    padding: 5px 8px;
+    font-size: 0.9em;
+    height: 60px; /* Fixed height for consistent look */
+    display: flex;
+    align-items: center; /* Vertically center the text */
+}
+
+.small-video .video-caption p {
+    margin: 0;
+    /* Limit to two lines for consistency */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Hover Effect */
+.video-item:hover .video-thumbnail img {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+.video-item:hover .play-icon {
+    background-color: #ff3333; /* Change play icon color on hover */
+}
+
+/* --- Responsive Adjustments for Tablets and Mobile --- */
+@media (max-width: 768px) {
+    .video-gallery-grid {
+        /* On smaller screens, revert to a 2-column grid */
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto; /* Auto rows */
+    }
+
+    /* The main featured video no longer spans multiple columns/rows */
+    .featured-main {
+        grid-column: span 2; /* Still spans the full width of the 2-column layout */
+        grid-row: auto;
+    }
+
+    /* All small videos are now 1/2 width (1fr) and flow naturally */
+    .small-video {
+        grid-column: span 1;
+        grid-row: auto;
+    }
+
+    .small-video .video-caption {
+        height: auto; /* Remove fixed height for better mobile flow */
+    }
+}
+
+@media (max-width: 480px) {
+    .video-gallery-grid {
+        /* On very small screens, make it a single column */
+        grid-template-columns: 1fr;
+    }
+    
+    /* Everything spans the full width (1 column) */
+    .featured-main,
+    .small-video {
+        grid-column: span 1;
+    }
+}
+/* <!-- end-video-gallery-section --> */
+
+ /* <!-- start-last-section --> */
+/* Basic Styling and Variables */
+
+.three-column-cards-container {
+    background-color: var(--section-bg);
+    padding: 20px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    /* CSS Grid for the 3-column layout */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    gap: 20px; /* Spacing between the columns/cards */
+}
+
+/* --- Individual Card Styling (The Content) --- */
+.news-card-section {
+    background-color: white;
+    border: 1px solid #ddd; /* Subtle border around the card */
+    padding: var(--padding-unit);
+}
+
+/* --- Header Flag Styling (Replication of the first image's header) --- */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* This section creates the bar look */
+    background-color: var(--section-bg);
+    margin: calc(-1 * var(--padding-unit)) calc(-1 * var(--padding-unit)) var(--padding-unit) calc(-1 * var(--padding-unit));
+    padding-right: var(--padding-unit);
+    height: 45px;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-color);
+}
+
+.category-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    padding: 0 15px 0 10px;
+    background-color: black;
+    color: white;
+    line-height: 45px;
+    height: 100%;
+}
+
+.category-title .title-arrow {
+    position: absolute;
+    top: 0;
+    right: -22px; /* Pull the arrow out of the dark box */
+    width: 0;
+    height: 0;
+    /* Create the white triangular cut */
+    border-top: 22.5px solid transparent; 
+    border-bottom: 22.5px solid transparent; 
+    border-left: 22px solid black; /* Same color as flag */
+    z-index: 2;
+}
+
+.more-news-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+}
+
+.more-news-link .arrow-icon {
+    margin-left: 5px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #000;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Main Featured Article Styling --- */
+.main-featured-article {
+    margin-bottom: var(--padding-unit);
+}
+
+.article-link {
+    display: block;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.rajniti-article-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 66.66%; /* 3:2 ratio */
+    overflow: hidden;
+}
+
+.rajniti-article-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-caption-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+/* --- Small Articles List Styling --- */
+.small-articles-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.small-article-item {
+    padding: 8px 0;
+    border-top: 1px solid #eee; /* Light gray separator for list items */
+}
+
+.small-article-item:first-child {
+    border-top: none; 
+}
+
+.small-article-item .thumbnail-and-text {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.article-thumbnail {
+    flex-shrink: 0;
+    width: 60px; /* Smaller thumbnail size for list items */
+    height: 60px;
+    overflow: hidden;
+}
+
+.article-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-title {
+    margin: 0;
+    font-size: 0.9em;
+    font-weight: normal;
+    color: #000;
+    /* Limit to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* Tablet View: Switch to 2 columns */
+@media (max-width: 992px) {
+    .three-column-cards-container {
+        grid-template-columns: repeat(2, 1fr); /* Two columns */
+        gap: 15px;
+    }
+}
+
+/* Mobile View: Switch to 1 column */
+@media (max-width: 576px) {
+    .three-column-cards-container {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 10px;
+    }
+}
+ /* <!-- end-last-section --> */
+
+ /* --- Global Footer Styling --- */
+/* start-footer-section */
+.main-site-footer {
+    background-color: #fff;
+    color: #333;
+    font-family: Arial, sans-serif;
+    border-top: 1px solid #ccc;
+}
+
+.footer-nav-bar,
+.footer-content-grid,
+.footer-copyright-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* --- Top Navigation Bar --- */
+.footer-nav-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.footer-nav-bar a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-left: 20px;
+    border: 1px solid #ddd;
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+/* --- Main Content Grid --- */
+.footer-content-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 3fr 1.5fr; /* 3 columns with varied width */
+    gap: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.footer-col {
+    padding: 0 15px;
+    line-height: 1.8;
+}
+
+/* Vertical dividers based on the image */
+.footer-col:nth-child(1),
+.footer-col:nth-child(2) {
+    border-right: 1px solid #eee;
+}
+
+/* Column 1: Logo/Brand */
+.site-logo {
+    font-size: 2.8em;
+    font-weight: 900;
+    margin: 0;
+    /* Creating the red and black text effect */
+    color: #000;
+    position: relative;
+    display: inline-block;
+}
+
+.site-logo::after {
+    content: "সংবাদ"; /* The black part */
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #000;
+}
+
+.site-logo::before {
+    content: "আমার"; /* The red part, slightly moved */
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #c00;
+}
+
+/* Column 2 & 3: Details */
+.contact-col p,
+.numbers-col p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.contact-col a {
+    color: #333;
+}
+
+.numbers-col strong {
+    font-weight: normal;
+    margin-right: 5px;
+}
+
+/* --- Bottom Copyright Bar --- */
+.footer-copyright-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #f5f5f5; /* Light gray background */
+    border-top: 1px solid #eee;
+}
+
+.copyright-text {
+    font-size: 0.8em;
+    margin: 0;
+}
+
+.design-credit {
+    font-size: 0.8em;
+    margin: 0;
+}
+
+.developer-name {
+    font-weight: bold;
+}
+
+.green-text {
+    color: #4CAF50; /* Green color for 'soft' */
+}
+
+.social-and-scroll {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-icon {
+    color: #fff;
+    background-color: #333;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.8em;
+    border-radius: 2px;
+}
+
+.youtube-icon {
+    font-size: 0.6em; /* Adjusting the size of the play button symbol */
+}
+
+.scroll-to-top {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+
+/* --- Responsive Adjustments --- */
+
+/* Tablet View: Stack the content grid into 2 columns */
+@media (max-width: 992px) {
+    .footer-content-grid {
+        grid-template-columns: 1fr 1fr; /* Two columns */
+    }
+
+    /* Remove the vertical border between the two remaining columns */
+    .footer-col:nth-child(2) {
+        border-right: none;
+        padding-top: 15px; /* Add some spacing above the second column */
+    }
+    
+    /* Move the third column to the second row, making it span both */
+    .footer-col:nth-child(3) {
+        grid-column: span 2;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+}
+
+/* Mobile View: Stack everything into 1 column */
+@media (max-width: 576px) {
+    .footer-nav-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .footer-nav-bar a {
+        margin-left: 0;
+    }
+
+    .footer-content-grid {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 10px;
+    }
+
+    /* Remove all vertical borders and add horizontal ones */
+    .footer-col {
+        border-right: none !important;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+    .footer-col:first-child {
+        border-top: none;
+    }
+    
+    /* Adjust logo size for mobile */
+    .site-logo {
+        font-size: 2.2em;
+    }
+    
+    .footer-copyright-bar {
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+    }
+    .social-and-scroll {
+        order: -1; /* Move social icons to the top of the bar */
+    }
+}
+/* end-footer-section */
+
+/* --- Responsiveness: Stacking on smaller screens (if the main container were wider) --- */
+@media (max-width: 600px) {
+    /* If the section was wider on desktop, this ensures it stacks cleanly */
+    /* In this case, since max-width is small, the mobile view is already the default. */
+}
+/* --- RESPONSIVENESS --- */
+/* This sidebar design is generally narrow, so responsiveness mainly ensures it fits 
+   within a smaller screen without breaking the main content structure. */
+@media (max-width: 400px) {
+    .tabbed-news-block {
+        /* Allow the block to take full width on very small screens */
+        max-width: 100%;
+    }
+}
